@@ -22,6 +22,23 @@ class PersonasController extends Controller
         return view("operaciones.personas", array("personas" => $personas, "titulo" => "Gestión de Personas"));
     }
 
+    public function indexjson() {
+        $personas = Persona::orderBy("apellidopaterno")->orderBy("apellidomaterno")->get();
+        $p = array();
+        foreach ($personas as $persona) {
+            $botonera = "
+            <a type=\"button\" class=\"btn btn-success btn-sm\" href=\"/personas/editar/".$persona->idpersona."\">Editar</a>
+            <button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"eliminarPersona(".$persona->idpersona.");\">Quitar</button>
+            ";
+
+
+            array_push($p, array($persona->rut, $persona->apellidopaterno, $persona->apellidomaterno, $persona->primernombre . " " . $persona->segundonombre, $botonera));
+        }
+        $retorno = array("data" => $p);
+
+        return response($retorno);
+    }
+
     public function editar($idpersona)  {
         $persona = new Persona();
         if ($idpersona > 0) {
@@ -46,6 +63,19 @@ class PersonasController extends Controller
         $persona->save();
 
         return redirect("/personas/editar/".$persona->idpersona);
+    }
+
+    public function eliminar(Request $request)  {
+        $persona = Persona::find($request->idpersona);
+        if (!$persona)      return response(array("resultado" => "error", "mensaje" => "Persona no encontrada"));
+        $nombre = $persona->primernombre . " " . $persona->apellidopaterno . " " . $persona->apellidomaterno;
+        try {
+            $persona->delete();
+        } catch (Exception $e)   {
+            return response(array("resultado" => "error", "mensaje" => "No se puede eliminar por tener contratos"));
+        }
+
+        return response(array("resultado" => "ok", "mensaje" => "Persona eliminada", "nombre" => $nombre));
     }
 
 
