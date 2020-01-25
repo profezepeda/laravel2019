@@ -10,6 +10,9 @@ class Persona extends Model
     public $timestamps = false;
     protected $primaryKey = 'idpersona';
 
+    protected $fillable = [ "rut", "primernombre", "segundonombre", "apellidopaterno", "apellidomaterno",
+                            "fechanacimiento", "sexo"];
+
     public function usuario()
     {
         return $this->hasOne(\App\Modelos\User::class, "id");

@@ -31,3 +31,4 @@ Route::get("/evaluaciones/editar/{idprueba}", "Operaciones\PruebasController@edi
 Route::post("/evaluaciones/guardar", "Operaciones\PruebasController@guardar");
 Route::post("/evaluaciones/asistentes/agregar", "Operaciones\PruebasController@agregarasistentes");
 Route::post("/evaluaciones/asistentes/quitar", "Operaciones\PruebasController@quitarasistentes");
+

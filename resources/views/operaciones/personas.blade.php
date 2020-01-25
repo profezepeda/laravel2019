@@ -7,7 +7,7 @@
 
     <a type="button" class="btn btn-primary" href="/personas/editar/0">Agregar</a>
 
-    <table class="table">
+    <table id="tabla" class="display">
         <thead>
           <tr>
             <th scope="col">RUT</th>
@@ -36,4 +36,12 @@
 
 </div>
 
+@endsection
+
+@section("javascript")
+<script>
+    $(document).ready( function () {
+        $('#tabla').DataTable();
+    } );
+</script>
 @endsection

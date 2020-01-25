@@ -6,6 +6,9 @@ namespace App\Http\Controllers\Operaciones;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modelos\Persona;
+use App\Modelos\PersonaTipoContrato;
+use App\Modelos\Cargo;
+
 
 class PersonasController extends Controller
 {
@@ -24,7 +27,9 @@ class PersonasController extends Controller
         if ($idpersona > 0) {
             $persona = Persona::find((int)$idpersona);
         }
-        return view("operaciones.editar_persona", array("persona" => $persona));
+        $tiposcontrato = PersonaTipoContrato::all();
+        $cargos = Cargo::all();
+        return view("operaciones.editar_persona", array("persona" => $persona, "tiposcontrato" => $tiposcontrato, "cargos" => $cargos));
     }
 
     public function guardar(Request $request)   {

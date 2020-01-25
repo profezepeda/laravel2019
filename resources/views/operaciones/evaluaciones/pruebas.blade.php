@@ -7,7 +7,7 @@
 
     <a type="button" class="btn btn-primary" href="/evaluaciones/editar/0">Agregar</a>
 
-    <table class="table">
+    <table id="tablaPruebas" class="display">
         <thead>
           <tr>
             <th scope="col">Fecha</th>
@@ -35,3 +35,13 @@
 </div>
 
 @endsection
+
+
+@section("javascript")
+<script>
+    $(document).ready( function () {
+        $('#tablaPruebas').DataTable();
+    } );
+</script>
+@endsection
+

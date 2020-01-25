@@ -74,7 +74,7 @@
                 <input type="hidden" name="idprueba" value="{{ $prueba->idprueba }}" />
 
                 <div class="col-8">
-                    <select class="browser-default custom-select " name="idpersona">
+                    <select class="browser-default custom-select " name="idpersona" id="asistente_idpersona">
 
                         @foreach ($personas as $persona)
                             <option value="{{ $persona->idpersona }}">{{ $persona->apellidopaterno }} {{ $persona->apellidomaterno }} {{ $persona->primernombre }} {{ $persona->segundonombre }}</option>
@@ -93,7 +93,7 @@
                 <input type="hidden" name="idpersona" id="delPersona" value="" />
             </form>
 
-            <table class="table">
+            <table id="tablaPersonas" class="display">
                 <thead>
                     <tr>
                     <th scope="col">RUT</th>
@@ -123,7 +123,7 @@
 
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-            <table class="table">
+            <table id="tablaPreguntas" class="display">
                 <thead>
                     <tr>
                     <th scope="col">N°</th>
@@ -173,8 +173,21 @@ function eliminarAsistente(idp)    {
     document.getElementById("delPersona").value = idp;
     document.getElementById("formEliminar").submit();
 }
-
-
 </script>
 
+
+
 @endsection
+
+
+@section("javascript")
+<script>
+    $(document).ready( function () {
+        $('#tablaPersonas').DataTable();
+        $('#tablaPreguntas').DataTable();
+        $('#encargado_idpersona').select2();
+        $("#asistente_idpersona").select2();
+    } );
+</script>
+@endsection
+
